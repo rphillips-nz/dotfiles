@@ -14,7 +14,7 @@ export FIGNORE=DS_Store
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2 | tr ' ' '\n')" scp sftp ssh
 
 # If possible, add tab completion for many more commands
-[ -f /etc/bash_completion ] && source /etc/bash_completion
+[ -f $(brew --prefix)/etc/bash_completion ] && source $(brew --prefix)/etc/bash_completion
 
 # Always enable colored `grep` output
 export GREP_OPTIONS="--color=auto"
@@ -27,6 +27,9 @@ export EDITOR="vim"
 
 # Append to the Bash history file, rather than overwriting it
 shopt -s histappend
+
+# Save all lines of a multiple-line command in the same history entry
+shopt -s cmdhist
 
 # Larger bash history (allow 32³ entries; default is 500)
 export HISTSIZE=32768
@@ -45,6 +48,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias la='ls -a'
 alias ll='ls -al'
+alias tree='tree -C'
 alias mkdir='mkdir -pv'
 alias h='history'
 alias j='jobs'
@@ -57,7 +61,8 @@ alias nginxcheck='ps aux | grep nginx | grep -v grep'
 alias nginxedit='vim /usr/local/etc/nginx/nginx.conf'
 alias nginxkill='killall nginx'
 alias nginxreload='/usr/local/sbin/nginx -s reload'
-
+alias gut='git'
+alias gti='git'
 
 
 # ----
