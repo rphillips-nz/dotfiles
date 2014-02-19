@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Make sure you run this terrible script from this folder
+
+DIR=`pwd`
+cd ~
+
+ln -ish "$DIR/.bash_profile" ~/.bash_profile
+ln -ish "$DIR/.bash_prompt"  ~/.bash_prompt
+ln -ish "$DIR/.gitconfig"    ~/.gitconfig
+ln -ish "$DIR/.gitignore"    ~/.gitignore
+ln -ish "$DIR/.vimrc"        ~/.vimrc
+
+touch .gitconfig.local
+touch .bash_profile.local
+
+cd $DIR
+
