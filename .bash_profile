@@ -69,9 +69,9 @@ export PATH="$PATH:/usr/local/sbin"
 
 
 
-# --------------
-# Local Settings
+# ------
+# Extras
 
-source .bash_profile.local
-source .bash_prompt
+source ~/.bash_profile.local
+source ~/.bash_prompt
 
