@@ -1,7 +1,3 @@
-#
-# .bash_profile
-#
-
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob
 
@@ -13,9 +9,6 @@ export CLICOLOR=1
 
 # Ignore these damn files in tab completion
 export FIGNORE=DS_Store
-
-# Set prompt
-#export PS1='[\[\033[32m\]\w\[\033[0m\]]\n\[\033[1;36m\]\u\[\033[1;33m\] $(date +%R) -> \[\033[0m\]'
 
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2 | tr ' ' '\n')" scp sftp ssh
@@ -44,6 +37,7 @@ export HISTCONTROL=ignoredups
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 
 
+
 # -----
 # Alias
 
@@ -58,9 +52,7 @@ alias psmem='ps aux | sort -nr -k 4'
 alias pscpu='ps aux | sort -nr -k 3'
 alias ports='netstat -a | egrep "Proto|LISTEN"'
 alias path='echo -e ${PATH//:/\\n}'
-
 alias json='python -mjson.tool'
-
 alias nginxcheck='ps aux | grep nginx | grep -v grep'
 alias nginxedit='vim /usr/local/etc/nginx/nginx.conf'
 alias nginxkill='killall nginx'
