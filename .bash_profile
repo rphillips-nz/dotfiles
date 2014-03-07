@@ -65,6 +65,7 @@ alias nginxreload='/usr/local/sbin/nginx -s reload'
 alias gut='git'
 alias gti='git'
 alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm update npm -g; npm update -g;'
+alias checkps='ps aux | grep  -v grep | grep'
 
 
 
