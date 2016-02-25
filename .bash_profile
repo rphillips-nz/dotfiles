@@ -51,8 +51,10 @@ alias ll='ls -al'
 alias tree='tree -C'
 alias mkdir='mkdir -pv'
 alias g='git'
+alias a='atom .'
 alias h='history'
-alias j='jobs'
+alias j='jekyll serve'
+alias reload='source ~/.bash_profile'
 alias psmem='ps aux | sort -nr -k 4'
 alias pscpu='ps aux | sort -nr -k 3'
 alias ports='netstat -a | egrep "Proto|LISTEN"'
@@ -75,6 +77,7 @@ alias hide-hidden-files='defaults delete com.apple.finder AppleShowAllFiles; kil
 # Path
 
 export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/workspace/dotfiles/bin"
 export PATH="$PATH:/usr/local/share/npm/bin"
 export PATH="$PATH:/usr/local/sbin"
 
