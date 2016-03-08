@@ -57,8 +57,16 @@ function git_dirty_parse() {
 	[[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo "*"
 }
 
+function git_ahead() {
+	[[ $(git status -sb 2> /dev/null | tail -n1 | cut -d ' ' -f 3,4) == *"ahead"* ]]
+}
+
+function git_ahead_parse() {
+	echo $(git status -sb 2> /dev/null | tail -n1 | cut -d ' ' -f 3,4)
+}
+
 function git_branch_parse() {
-	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(git_dirty_parse)/"
+	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(git_dirty_parse) $(git_ahead_parse)/"
 }
 
 function git_repo_echo {
@@ -77,7 +85,7 @@ do
 	dir=`echo $repo | sed -e 's/\/.git/\//' | sed s'/.$//' | sed s'/^\.\///'`
 	cd $dir
 
-	if git_dirty
+	if git_ahead || git_dirty
 	then
 		changed+=("$(git_repo_echo $dir)")
 	else

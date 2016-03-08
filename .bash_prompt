@@ -43,13 +43,30 @@ export WHITE
 export BOLD
 export RESET
 
-function parse_git_dirty() {
-	[[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo "*"
+function git_dirty() {
+    [[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]]
 }
 
-function parse_git_branch() {
-	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
+function git_dirty_parse() {
+    [[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo "*"
 }
 
-export PS1="\[${BOLD}${MAGENTA}\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(parse_git_branch)\[$WHITE\]\n\$ \[$RESET\]"
+function git_ahead_parse() {
+    echo $(g status -sb 2> /dev/null | tail -n1 | cut -d ' ' -f 3,4)
+}
+
+function git_branch_parse() {
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(git_dirty_parse) $(git_ahead_parse)/"
+}
+
+function git_repo_echo {
+    echo -e "$BOLD$GREEN$1$WHITE on $PURPLE$(git_branch_parse)$RESET"
+}
+
+# All
+#export PS1="\[${BOLD}${MAGENTA}\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(git_branch_parse)\[$WHITE\]\n\$ \[$RESET\]"
+
+# Without user and machine
+export PS1="\[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(git_branch_parse)\[$WHITE\]\n\$ \[$RESET\]"
+
 export PS2="\[$ORANGE\]→ \[$RESET\]"

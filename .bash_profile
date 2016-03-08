@@ -39,6 +39,8 @@ export HISTCONTROL=ignoredups
 # Make some commands not show up in history
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 
+# Fixes weird case in .bash_prompt, needs $ brew install gnu-sed
+#alias sed='gsed'
 
 
 # -----
