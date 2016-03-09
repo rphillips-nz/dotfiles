@@ -58,11 +58,11 @@ function git_dirty_parse() {
 }
 
 function git_ahead() {
-	[[ $(git status -sb 2> /dev/null | tail -n1 | cut -d ' ' -f 3,4) == *"ahead"* ]]
+	[[ $(git status -sb 2> /dev/null | head -n1 | cut -d ' ' -f 3,4) == *"ahead"* ]]
 }
 
 function git_ahead_parse() {
-	echo $(git status -sb 2> /dev/null | tail -n1 | cut -d ' ' -f 3,4)
+	echo $(git status -sb 2> /dev/null | head -n1 | cut -d ' ' -f 3,4)
 }
 
 function git_branch_parse() {
