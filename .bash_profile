@@ -56,6 +56,7 @@ alias g='git'
 alias a='atom .'
 alias h='history'
 alias j='jekyll serve'
+alias bejs='bundle exec jekyll serve'
 alias reload='source ~/.bash_profile'
 alias psmem='ps aux | sort -nr -k 4'
 alias pscpu='ps aux | sort -nr -k 3'
@@ -72,7 +73,7 @@ alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup
 alias checkps='ps aux | grep  -v grep | grep'
 alias show-hidden-files='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hide-hidden-files='defaults delete com.apple.finder AppleShowAllFiles; killall Finder /System/Library/CoreServices/Finder.app'
-
+alias ccgo='g purr && npm start'
 
 
 # ----
@@ -90,4 +91,3 @@ export PATH="$PATH:/usr/local/sbin"
 
 source ~/.bash_profile.local
 source ~/.bash_prompt
-

@@ -15,4 +15,3 @@ touch .gitconfig.local
 touch .bash_profile.local
 
 cd $DIR
-

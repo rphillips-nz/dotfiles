@@ -1,7 +1,7 @@
 dotfiles
 ========
 
-My configuration on OS X.
+My configuration on macOS.
 
-The setup script will link the files to your home directory.
+The setup script links the files to your home directory.
 

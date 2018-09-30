@@ -50,11 +50,11 @@ export RESET
 # TODO - extract to git-functions.sh
 
 function git_dirty() {
-	[[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]]
+	[[ $(git status 2> /dev/null | tail -n1) != *"nothing to commit, working tree clean"* ]]
 }
 
 function git_dirty_parse() {
-	[[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo "*"
+	[[ $(git status 2> /dev/null | tail -n1) != *"nothing to commit, working tree clean"* ]] && echo "*"
 }
 
 function git_ahead() {
@@ -62,7 +62,7 @@ function git_ahead() {
 }
 
 function git_ahead_parse() {
-	echo $(git status -sb 2> /dev/null | head -n1 | cut -d ' ' -f 3,4)
+	echo $(git status -sb 2> /dev/null | head -n1 | cut -d ' ' -f 3,4,5,6)
 }
 
 function git_branch_parse() {
