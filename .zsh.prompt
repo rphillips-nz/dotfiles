@@ -1,0 +1,40 @@
+# Color reference
+# ---------------
+
+# BLACK          %F{0}
+# RED            %F{1}
+# GREEN          %F{2}
+# YELLOW         %F{3}
+# BLUE           %F{4}
+# MAGENTA        %F{5}
+# CYAN           %F{6}
+# WHITE          %F{7}
+# BLACK_BRIGHT   %F{8}
+# RED_BRIGHT     %F{9}
+# GREEN_BRIGHT   %F{10}
+# YELLOW_BRIGHT  %F{11}
+# BLUE_BRIGHT    %F{12}
+# MAGENTA_BRIGHT %F{13}
+# CYAN_BRIGHT    %F{14}
+# WHITE_BRIGHT   %F{15}
+# RESET          %F
+
+function git_dirty_parse() {
+	[[ $(git status 2> /dev/null | tail -n1) != *"nothing to commit, working tree clean"* ]] && echo "*"
+}
+
+function git_ahead_parse() {
+	echo $(g status -sb 2> /dev/null | head -n1 | cut -d ' ' -f 3,4,5,6)
+}
+
+function git_branch_parse() {
+	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(git_dirty_parse) $(git_ahead_parse)/"
+}
+
+# Allow functions to expand in prompt
+setopt PROMPT_SUBST
+
+local branch_suffix="%F{8}\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")"
+local branch="%F{5}\$(git_branch_parse)"
+
+export PROMPT="%F{2}%~${branch_suffix}${branch}%F{8}"$'\n'"\$ %F{7}"

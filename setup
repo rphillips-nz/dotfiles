@@ -1,17 +1,29 @@
-#!/bin/bash
+#!/bin/zsh
 
 # Make sure you run this terrible script from this folder
 
 DIR=`pwd`
 cd ~
 
-ln -ish "$DIR/.bash_profile" ~/.bash_profile
-ln -ish "$DIR/.bash_prompt"  ~/.bash_prompt
+# Override current config with links to here
+ln -ish "$DIR/.zshrc"        ~/.zshrc
+ln -ish "$DIR/.zsh.prompt"   ~/.zsh.prompt
 ln -ish "$DIR/.gitconfig"    ~/.gitconfig
 ln -ish "$DIR/.gitignore"    ~/.gitignore
 ln -ish "$DIR/.vimrc"        ~/.vimrc
 
+# Create override files
 touch .gitconfig.local
-touch .bash_profile.local
+touch .zshrc.local
+
+# Append local kitty config to existing config
+mkdir -p .config/kitty
+touch .config/kitty/kitty.conf
+if ! grep -q "include $DIR/kitty.conf" .config/kitty/kitty.conf; then
+	echo "\ninclude $DIR/kitty.conf" >> .config/kitty/kitty.conf
+fi
+
+# Silences last login message
+touch .hushlogin
 
 cd $DIR
