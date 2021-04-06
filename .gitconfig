@@ -1,31 +1,38 @@
 [include]
 	path = ~/.gitconfig.local
+
 [core]
 	excludesfile = ~/.gitignore
 	# Make `git rebase` safer on OS X
 	# More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
 	trustctime = false
 	pager = less -x1,5
+
 [push]
 	default = current
+
 [color]
 	branch = auto
 	diff = auto
 	status = auto
 	ui = auto
+
 [color "branch"]
 	current = yellow reverse
 	local = yellow
 	remote = green
+
 [color "diff"]
 	meta = yellow bold
 	frag = magenta bold
 	old = red
 	new = cyan
+
 [color "status"]
 	added = yellow
 	changed = green
 	untracked = cyan
+
 [alias]
 	st = status -sb
 	ci = commit
@@ -41,12 +48,18 @@
 	required = true
 
 [diff]
-    tool = kitty
-    guitool = kitty.gui
+	tool = kitty
+	guitool = kitty.gui
+
 [difftool]
-    prompt = false
-    trustExitCode = true
+	prompt = false
+	trustExitCode = true
+
 [difftool "kitty"]
-    cmd = kitty +kitten diff $LOCAL $REMOTE
+	cmd = kitty +kitten diff $LOCAL $REMOTE
+
 [difftool "kitty.gui"]
-    cmd = kitty kitty +kitten diff $LOCAL $REMOTE
+	cmd = kitty kitty +kitten diff $LOCAL $REMOTE
+
+[pull]
+	rebase = false

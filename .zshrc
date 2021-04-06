@@ -113,8 +113,15 @@ fi
 
 
 
+# ------
+# Prompt
+
+[ -f ~/.zsh.prompt ] && source ~/.zsh.prompt
+
+
+
 # ---------
 # Overrides
 
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
-[ -f ~/.zsh.prompt ] && source ~/.zsh.prompt
+
