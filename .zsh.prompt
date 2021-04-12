@@ -33,7 +33,7 @@ function +vi-git-st() {
 	(( $ahead )) && gitstatus+=( " ⇡${ahead}" )
 	local behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l | tr -d ' ')
 	(( $behind )) && gitstatus+=( " ⇣${behind}" )
-	hook_com[misc]+=${(j:/:)gitstatus}
+	hook_com[misc]+=${(j::)gitstatus}
 }
 
 +vi-git-untracked(){
