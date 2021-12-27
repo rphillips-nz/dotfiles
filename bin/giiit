@@ -1,5 +1,29 @@
 #!/bin/zsh
 
+fetch=1
+pull=1
+rebase=1
+
+print_usage() {
+	printf "Usage
+  $ giiit [options]
+
+Options
+  -f fetch each repo
+  -p pull each repo
+  -r pull rebase each repo\n"
+}
+
+while getopts 'f' flag; do
+  case "${flag}" in
+    f) fetch=0 ;;
+    p) pull=0 ;;
+    r) rebase=0 ;;
+    *) print_usage
+       exit 1 ;;
+  esac
+done
+
 function git_has_staged() {
 	[[ $(git diff --name-only --cached | wc -l) -ne 0 ]]
 }
@@ -29,10 +53,14 @@ repo_count=0
 
 pushd .
 
-for repo in `find . -depth 2 -type d -name ".git"`
+for repo in $(find . -depth 2 -type d -name ".git")
 do
-	dir=`echo $repo | sed -e 's/\/.git/\//' | sed s'/.$//' | sed s'/^\.\///'`
+	dir=$(echo $repo | sed -e 's/\/.git/\//' | sed s'/.$//' | sed s'/^\.\///')
 	cd $dir
+
+	[[ $fetch == 0 ]] && git fetch
+	[[ $pull == 0 ]] && git pull
+	[[ $rebase == 0 ]] && git pull --rebase
 
 	local position=""
 	local lights=""
