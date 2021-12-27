@@ -14,7 +14,7 @@ Options
   -r pull rebase each repo\n"
 }
 
-while getopts 'f' flag; do
+while getopts 'fpr' flag; do
   case "${flag}" in
     f) fetch=0 ;;
     p) pull=0 ;;
@@ -34,6 +34,10 @@ function git_has_unstaged() {
 
 function git_has_untracked() {
 	[[ $(git status --porcelain | grep '^??' | wc -l) -ne 0 ]]
+}
+
+function git_has_changes() {
+	[[ $(git status --porcelain | wc -l) -ne 0 ]]
 }
 
 function git_ahead() {
@@ -58,9 +62,19 @@ do
 	dir=$(echo $repo | sed -e 's/\/.git/\//' | sed s'/.$//' | sed s'/^\.\///')
 	cd $dir
 
-	[[ $fetch == 0 ]] && git fetch
-	[[ $pull == 0 ]] && git pull
-	[[ $rebase == 0 ]] && git pull --rebase
+	[[ $fetch -eq 0 ]] && git fetch
+
+	if [[ $pull -eq 0 || $rebase -eq 0 ]]; then
+		if $(git_has_changes); then
+			echo "\e[0;31m$dir unable to pull due to changes\e[0m"
+		else
+			if [[ $rebase -eq 0 ]]; then
+				git pull --rebase
+			elif [[ $pull -eq 0 ]]; then
+				git pull
+			fi
+		fi
+	fi
 
 	local position=""
 	local lights=""
